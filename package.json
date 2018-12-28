@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node app.js"
+    "start": "node app.js"
   },
   "author": "Gilberto Méndez Sántiz",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.4.0",

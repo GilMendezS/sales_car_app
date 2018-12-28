@@ -35,6 +35,11 @@ const carSchema = new mongoose.Schema({
         longitude: Number,
         latitude: Number,
         required: false
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
     }
 })
 carSchema.set('timestamps', true);

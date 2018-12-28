@@ -30,6 +30,17 @@ const userSchema = new mongoose.Schema({
         required: false,
     }
 });
+userSchema.pre('save', function(next){
+    bcrypt.hash(this.password, 10, (err, hash) => {
+        if(!err){
+            this.password = hash;
+            next();
+        }
+        else {
+            throw new Error('Error in hashing password');
+        }
+    })
+})
 userSchema.methods.checkPassword = function(passwordToValidate){
     return bcrypt.compare(passwordToValidate, this.password)
         .then(result => {

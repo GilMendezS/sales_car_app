@@ -3,14 +3,22 @@ const morgan = require('morgan');
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const userRoutes = require('./api/routes/user');
+
+
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
-
+const userRoutes = require('./api/routes/user');
+const carRoutes = require('./api/routes/car');
+const placeRoutes = require('./api/routes/places');
+const statusCarRoutes = require('./api/routes/status');
 app.use('/api/users', userRoutes);
+app.use('/api/cars', carRoutes);
+app.use('/api/statuses', statusCarRoutes);
+app.use('/api/states-and-cities', placeRoutes);
+
 
 const PORT = process.env.PORT || 3000;
 

@@ -64,11 +64,20 @@ exports.getCar = async(req, res, next) => {
 exports.updateCar = async(req, res, next) => {
     try {
         const carId = req.params.id;
-        const updatedCar = await Car.findByIdAndUpdate(carId, req.body)
-        return res.status(200).json({
-            message: `Car's Information has been updated :)`,
-            data: updatedCar
-        })
+        const carToupdate = await Car.findById(carId);
+        if(carToupdate.user == req.user_id){
+            const updatedCar = await Car.findByIdAndUpdate(carId, req.body)
+            return res.status(200).json({
+                message: `Car's Information has been updated :)`,
+                data: updatedCar
+            })
+        }   
+        else {
+            return res.status(403).json({
+                message: `You don't have permissions to modify this car`
+            })
+        }
+        
     } catch (error) {
         return res.status(500).json({
             message: 'Error updating the information related to the car',
@@ -79,10 +88,19 @@ exports.updateCar = async(req, res, next) => {
 exports.removeCar = async(req, res, next) => {
     try {
         const carId = req.params.id;
-        await Car.findByIdAndRemove(carId)
-        return res.status(200).json({
-            message: 'This car was removed successfully :)'
-        })
+        const carToRemove = await Car.findById(carId);
+        if(carToRemove.user == req.user._id){
+            await Car.findByIdAndRemove(carId)
+            return res.status(200).json({
+                message: 'This car was removed successfully :)'
+            })
+        }
+        else {
+            return res.status(403).json({
+                message: `You don't have permissions to remove this car`
+            })
+        }
+        
     } catch (error) {
         return res.status(500).json({
             message: 'Error removing the car',

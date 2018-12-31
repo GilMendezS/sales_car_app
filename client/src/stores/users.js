@@ -41,6 +41,13 @@ export default {
             axios.post(`${rootGetters.url}/users/signin`, payload)
             .then(response => {
                 console.log(response.data)
+                if(response.status === 200){
+                    commit('setUser', response.data.user);
+                    commit('setToken', response.data.token)
+                }
+                else {
+
+                }
             })
             .catch(err => {
                 console.log(err)

@@ -9,6 +9,10 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    year: {
+        type: Number,
+        require: true
+    },
     price: {
         type: Number,
         required: true,
